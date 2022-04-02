@@ -33,7 +33,6 @@ const RollingPannel = (props) => {
     const quantityRolled = rolledValues.length;
 
     const toggleSwitch = () => {
-        console.log('tá trocando');
         setisRepeadBlocked(previousState => !previousState);
         setRolledValues([]);
     }
@@ -90,7 +89,6 @@ const RollingPannel = (props) => {
 
             //se não, inicia um novo grupo de sorteio
             else {
-                console.log('novo grupo');
                 setLastValue(random)
                 setRolledValues([random])
             }
@@ -104,7 +102,7 @@ const RollingPannel = (props) => {
 
     return (
         <View style={styles.container}>
-            <OptionsTab/>
+            {/* <OptionsTab/> */}
             <View style={styles.inputSection}>
                 <TextInput
                     style={styles.inputField}

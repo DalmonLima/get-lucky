@@ -9,15 +9,20 @@ const Option = (props) => {
     )
 }
 
-const OptionsTab = () => {
+const OptionsTab = (props) => {
     const [options, setOptions] = useState([
         { id: 1, title: 'INTERVALO', isActive: true },
         { id: 2, title: 'DADO', isActive: false },
         { id: 3, title: 'MOEDA', isActive: false }
-    ])
+    ]);
+
+    const [currentMode, setCurrentMode] = useState();
+
+    useEffect(() => {
+        props.tabListener(currentMode)
+    }, [options])
 
     const controlState = (selectedOptionId) => {
-        console.log('teste')
         const newValues = []
         options.map((option) => {
             if (option.id === selectedOptionId) {
@@ -26,7 +31,7 @@ const OptionsTab = () => {
                     title: option.title,
                     isActive: true
                 })
-                console.log('renderizando o selecionado')
+                setCurrentMode(option.title)
             }
             else {
                 newValues.push({
@@ -34,50 +39,52 @@ const OptionsTab = () => {
                     title: option.title,
                     isActive: false
                 })
-                console.log('renderizando outra opção')
             }
         })
         setOptions(newValues)
     }
 
     return (
-        <ScrollView
-            contentContainerStyle={styles.rollingType}
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-        >
-            {options.map(option => {
-                return (
-                    <Pressable
-                        style={option.isActive ? styles.OptionActive : styles.optionInactive}
-                        key={option.id}
-                        onPressIn={() => controlState(option.id)}
-                    >
-                        <Option
-                            title={option.title}
-                            isActive={option.isActive}
-                        />
-                    </Pressable>
-                )
-            })}
-        </ScrollView >
+        <View>
+            <ScrollView
+                contentContainerStyle={styles.rollingType}
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+            >
+                {options.map(option => {
+                    return (
+                        <Pressable
+                            style={option.isActive ? styles.OptionActive : styles.optionInactive}
+                            key={option.id}
+                            onPressIn={() => controlState(option.id)}
+                        >
+                            <Option
+                                title={option.title}
+                                isActive={option.isActive}
+                            />
+                        </Pressable>
+                    )
+                })}
+            </ScrollView >
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
     rollingType: {
         flexDirection: 'row',
-        paddingVertical: 16
+        backgroundColor: 'yellow',
+        flex: 1,
     },
     OptionActive: {
-        paddingVertical: 8,
+        paddingVertical: 16,
         paddingHorizontal: 16,
         flexDirection: 'column',
         borderBottomColor: '#ff6b00',
         borderBottomWidth: 5,
     },
     optionInactive: {
-        paddingVertical: 8,
+        paddingVertical: 16,
         paddingHorizontal: 16,
         flexDirection: 'column'
     }

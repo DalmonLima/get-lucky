@@ -5,11 +5,18 @@ import Home from './screens/home'
 
 const App = () => {
   return (
-    <View>
-      <StatusBar style="auto" />
-      <Home />
+    <View style={styles.base}>
+      <StatusBar/>
+      <Home/>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  base: {
+    flex: 1,
+    backgroundColor: 'red'
+  }
+})
 
 export default App;
