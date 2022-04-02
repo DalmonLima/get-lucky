@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import RollingPannel from '../components/rolling-pannel';
-import ResultSection from '../components/result-section';
+import IntervalConfig from '../components/interval-config';
+import IntervalResult from '../components/interval-result';
+import DiceConfig from '../components/dice-config';
+import DiceResult from '../components/dice-result';
+import CoinConfig from '../components/coin-config';
+import CoinResult from '../components/coin-result';
 import OptionsTab from '../components/options-tab';
 
 const HomeScreen = () => {
@@ -57,24 +61,50 @@ const HomeScreen = () => {
 
             case 'DADO':
                 return (
-                    <Text>Dice</Text>
-                );
-                break;
-            case 'MOEDA':
-                return (
-                    <Text>Coin</Text>
-                );
-                break;
-            default:
-                return (
                     <>
-                        <ResultSection
+                        <DiceResult
                             newResult={lastRolledValue}
                             repeatRule={repeatRule}
                             maxRolls={maxRolls}
                             quantityRolls={quantityRolls}
                         />
-                        <RollingPannel
+                        <DiceConfig
+                            checkResult={getResultValue}
+                            checkRepeatRule={getRepeatRule}
+                            checkMaxRolls={getMaxRolls}
+                            checkQuantityRolls={getQuantityRolls}
+                        />
+                    </>
+                );
+                break;
+            case 'MOEDA':
+                return (
+                    <>
+                        <CoinResult
+                            newResult={lastRolledValue}
+                            repeatRule={repeatRule}
+                            maxRolls={maxRolls}
+                            quantityRolls={quantityRolls}
+                        />
+                        <CoinConfig
+                            checkResult={getResultValue}
+                            checkRepeatRule={getRepeatRule}
+                            checkMaxRolls={getMaxRolls}
+                            checkQuantityRolls={getQuantityRolls}
+                        />
+                    </>
+                );
+                break;
+            default:
+                return (
+                    <>
+                        <IntervalResult
+                            newResult={lastRolledValue}
+                            repeatRule={repeatRule}
+                            maxRolls={maxRolls}
+                            quantityRolls={quantityRolls}
+                        />
+                        <IntervalConfig
                             checkResult={getResultValue}
                             checkRepeatRule={getRepeatRule}
                             checkMaxRolls={getMaxRolls}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-const ResultSection = (props) => {
+const IntervalResult = (props) => {
     return (
         <View style={styles.section}>
             {(props.newResult) ?
@@ -16,7 +16,7 @@ const ResultSection = (props) => {
 
                 )
                 :
-                <Text>Nenhum resultado sorteado</Text>
+                <Text>Nenhum dado jogado</Text>
             }
         </View>
     )
@@ -37,4 +37,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default ResultSection
+export default IntervalResult

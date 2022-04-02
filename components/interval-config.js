@@ -7,22 +7,8 @@ import {
     Pressable,
     Switch,
 } from 'react-native';
-import OptionsTab from './options-tab'
 
-const Dice = () => {
-    return (
-        <View style={styles.container}>
-            <OptionsTab/>
-            <Pressable style={styles.rollButton}
-                onPress={randomize}
-            >
-                <Text style={styles.rollButtonText}> SORTEAR </Text>
-            </Pressable>
-        </View>
-    )
-}
-
-const RollingPannel = (props) => {
+const IntervalConfig = (props) => {
     const [isRepeadBlocked, setisRepeadBlocked] = useState(false);
     const [min, setMin] = useState(1);
     const [max, setMax] = useState(10);
@@ -102,7 +88,6 @@ const RollingPannel = (props) => {
 
     return (
         <View style={styles.container}>
-            {/* <OptionsTab/> */}
             <View style={styles.inputSection}>
                 <TextInput
                     style={styles.inputField}
@@ -191,4 +176,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default RollingPannel;
+export default IntervalConfig;
