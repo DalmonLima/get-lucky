@@ -73,7 +73,6 @@ const OptionsTab = (props) => {
 const styles = StyleSheet.create({
     rollingType: {
         flexDirection: 'row',
-        backgroundColor: 'yellow',
         flex: 1,
     },
     OptionActive: {

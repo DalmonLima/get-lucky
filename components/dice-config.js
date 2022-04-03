@@ -9,7 +9,7 @@ import {
 
 const DiceConfig = (props) => {
     const min = 1;
-    const [max, setMax] = useState(10);
+    const [max, setMax] = useState(6);
     const [lastValue, setLastValue] = useState();
     const [rolledValues, setRolledValues] = useState([]);
 
@@ -50,15 +50,6 @@ const DiceConfig = (props) => {
                 >
                     <View>
                         <Text>D4</Text>
-                    </View>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                    style={styles.diceType}
-                    onPress={() => setRange(8)}
-                >
-                    <View>
-                        <Text>D8</Text>
                     </View>
                 </TouchableOpacity>
             </View>
