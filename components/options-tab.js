@@ -27,17 +27,13 @@ const OptionsTab = (props) => {
         options.map((option) => {
             if (option.id === selectedOptionId) {
                 newValues.push({
-                    id: option.id,
-                    title: option.title,
-                    isActive: true
+                    ...option, isActive: true
                 })
                 setCurrentMode(option.title)
             }
             else {
                 newValues.push({
-                    id: option.id,
-                    title: option.title,
-                    isActive: false
+                    ...option, isActive: false
                 })
             }
         })

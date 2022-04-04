@@ -1,34 +1,13 @@
 import React from 'react';
 import { View, Text, StyleSheet, ImageBackground } from 'react-native'
-
-const loadImage = (number) => {
-    switch (number) {
-        case 1:
-            return <ImageBackground style={{ width: 100, height: 100 }} source={require("../assets/d6-1.png")} />;
-            break;
-        case 2:
-            return <ImageBackground style={{ width: 100, height: 100 }} source={require("../assets/d6-2.png")} />;
-            break;
-        case 3:
-            return <ImageBackground style={{ width: 100, height: 100 }} source={require("../assets/d6-3.png")} />;
-            break;
-        case 4:
-            return <ImageBackground style={{ width: 100, height: 100 }} source={require("../assets/d6-4.png")} />;
-            break;
-        case 5:
-            return <ImageBackground style={{ width: 100, height: 100 }} source={require("../assets/d6-5.png")} />;
-            break;
-        case 6:
-            return <ImageBackground style={{ width: 100, height: 100 }} source={require("../assets/d6-6.png")} />;
-            break;
-    }
-}
+import diceImages from './dice-images';
 
 const IntervalResult = (props) => {
+
     return (
         <View style={styles.section}>
-            {(props.newResult) ?
-                loadImage(props.newResult)
+            {(props.diceNumber) ?
+                <ImageBackground style={{ width: 176, height: 176 }} source={diceImages[props.diceType][props.diceNumber]} />
                 :
                 <Text>Nenhum dado jogado</Text>
             }

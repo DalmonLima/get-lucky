@@ -11,19 +11,20 @@ import OptionsTab from '../components/options-tab';
 const HomeScreen = () => {
 
     // STATES
-    // Interval States --------
-    const  [currentTab, setCurrentTab] = useState('interval')
+    const [currentTab, setCurrentTab] = useState('interval');
 
-    const [lastRolledValue, setLastRolledValue] = useState()
-    const [repeatRule, setRepeatRule] = useState()
-    const [maxRolls, setMaxRolls] = useState()
-    const [quantityRolls, setQuantityRolls] = useState()
+    // Interval States --------
+    const [lastRolledValue, setLastRolledValue] = useState();
+    const [repeatRule, setRepeatRule] = useState();
+    const [maxRolls, setMaxRolls] = useState();
+    const [quantityRolls, setQuantityRolls] = useState();
 
     // Dice States ------------
-
+    const [diceTossed, setDiceTossed] = useState();
+    const [diceType, setDiceType] = useState();
 
     // Coin States ------------
-
+    const [coinResultValue, setCoinResultValue] = useState();
 
 
     // FUNCTIONS
@@ -52,8 +53,18 @@ const HomeScreen = () => {
     }
 
     // Dice Functions ---------
-    // Coin Functions ---------
+    const getDiceResultValue = (value) => {
+        setDiceTossed(value);
+    }
 
+    const getDiceType = (type) => {
+        setDiceType(type);
+    }
+
+    // Coin Functions ---------
+    const getCoinResultValue = (value) => {
+        setCoinResultValue(value);
+    }
 
 
     const viewMode = (selectedMode) => {
@@ -63,16 +74,12 @@ const HomeScreen = () => {
                 return (
                     <>
                         <DiceResult
-                            newResult={lastRolledValue}
-                            repeatRule={repeatRule}
-                            maxRolls={maxRolls}
-                            quantityRolls={quantityRolls}
+                            diceNumber={diceTossed}
+                            diceType={diceType}
                         />
                         <DiceConfig
-                            checkResult={getResultValue}
-                            checkRepeatRule={getRepeatRule}
-                            checkMaxRolls={getMaxRolls}
-                            checkQuantityRolls={getQuantityRolls}
+                            checkDiceResult={getDiceResultValue}
+                            checkDiceType={getDiceType}
                         />
                     </>
                 );

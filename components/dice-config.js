@@ -9,53 +9,90 @@ import {
 
 const DiceConfig = (props) => {
     const min = 1;
-    const [max, setMax] = useState(6);
     const [lastValue, setLastValue] = useState();
-    const [rolledValues, setRolledValues] = useState([]);
-
-    const maxrolls = (max - min) + 1;
-    const quantityRolled = rolledValues.length;
+    const [diceOptions, setDiceOptions] = useState([
+        {
+            id: 1,
+            title: 'D6',
+            isActive: true,
+            max: 6
+        },
+        {
+            id: 2,
+            title: 'D4',
+            isActive: false,
+            max: 4
+        },
+        {
+            id: 3,
+            title: 'D8',
+            isActive: false,
+            max: 8
+        },
+        {
+            id: 4,
+            title: 'D12',
+            isActive: false,
+            max: 12
+        },
+        {
+            id: 5,
+            title: 'D20',
+            isActive: false,
+            max: 20
+        }
+    ])
+    const [max, setMax] = useState(diceOptions.find(option => option.isActive == true).max);
 
     useEffect(() => {
-        props.checkResult(lastValue)
-        props.checkMaxRolls(maxrolls)
-        props.checkQuantityRolls(quantityRolled)
-    }, [min, max, rolledValues, lastValue])
+        props.checkDiceResult(lastValue)
+        props.checkDiceType(max)
+    }, [max, lastValue])
 
     const randomize = () => {
         //gera o número aleatório
-        const random = Math.floor(Math.random() * maxrolls + min)
+        const random = Math.floor(Math.random() * max + min)
         setLastValue(random)
-    }
+    };
 
-    const setRange = (max) => {
-        setMax(max)
+    const controlState = (selectedOptionId) => {
+        const newValues = []
+        diceOptions.map((option) => {
+            if (option.id === selectedOptionId) {
+                newValues.push({
+                    ...option, isActive: true
+                })
+                setMax(option.max)
+            }
+            else {
+                newValues.push({
+                    ...option, isActive: false
+                })
+            }
+        })
+        setDiceOptions(newValues)
+        setLastValue(null)
     }
 
     return (
         <View style={styles.container}>
             <View style={styles.inputSection}>
-                <TouchableOpacity
-                    style={styles.diceType}
-                    onPress={() => setRange(6)}
-                >
-                    <View>
-                        <Text>D6</Text>
-                    </View>
-                </TouchableOpacity>
 
-                <TouchableOpacity
-                    style={styles.diceType}
-                    onPress={() => setRange(4)}
-                >
-                    <View>
-                        <Text>D4</Text>
-                    </View>
-                </TouchableOpacity>
+                {diceOptions.map((option) => {
+                    return (
+                        <TouchableOpacity
+                            onPress={() => controlState(option.id)}
+                            key = {option.id}
+                        >
+                            <View style={option.isActive ? styles.diceActive : styles.diceInactive}
+                            >
+                                <Text>{option.title}</Text>
+                            </View>
+                        </TouchableOpacity>
+                    )
+                })}
             </View>
-            <Pressable style={styles.rollButton}
-                onPress={randomize}
-            >
+            <Pressable style={styles.rollButton} onPress={randomize}>
                 <Text style={styles.rollButtonText}> JOGAR </Text>
             </Pressable>
         </View>
@@ -68,6 +105,16 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         padding: 16,
         width: '100%',
+    },
+    diceActive: {
+        borderRadius: 4,
+        padding: 8,
+        backgroundColor: '#ff6b00'
+    },
+    diceInactive: {
+        borderRadius: 4,
+        padding: 8,
+        backgroundColor: '#e9e9e9'
     },
     inputSection: {
         flexDirection: 'row',
