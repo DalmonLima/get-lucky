@@ -94,6 +94,7 @@ const IntervalConfig = (props) => {
                     onChangeText={newValue => minValidation(newValue)}
                     value={min.toString()}
                     keyboardType="numeric"
+                    maxLength={4}
 
                 />
                 <Text style={styles.separator}>a</Text>
@@ -102,6 +103,7 @@ const IntervalConfig = (props) => {
                     onChangeText={newValue => maxValidation(newValue)}
                     value={max.toString()}
                     keyboardType="numeric"
+                    maxLength={4}
                 />
             </View>
             <View style={styles.switchSection}>
@@ -127,8 +129,7 @@ const IntervalConfig = (props) => {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#fff',
-        padding: 16,
-        width: '100%',
+        padding: 16
     },
     inputSection: {
         flexDirection: 'row',
@@ -136,15 +137,16 @@ const styles = StyleSheet.create({
         paddingVertical: 16,
         paddingHorizontal: 24,
         borderRadius: 50,
-        justifyContent: 'space-evenly',
-        alignItems: 'center'
+        alignItems: 'center',
+        flexGrow: 1,
+        justifyContent: 'space-evenly'
     },
     inputField: {
         height: 48,
-        flexGrow: 1,
         backgroundColor: '#fff',
         borderRadius: 8,
-        padding: 8
+        padding: 8,
+        flexBasis: 100
     },
     separator: {
         width: 64,
