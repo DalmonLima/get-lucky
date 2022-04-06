@@ -88,16 +88,10 @@ const HomeScreen = () => {
                 return (
                     <>
                         <CoinResult
-                            newResult={lastRolledValue}
-                            repeatRule={repeatRule}
-                            maxRolls={maxRolls}
-                            quantityRolls={quantityRolls}
+                            newResult={coinResultValue}
                         />
                         <CoinConfig
-                            checkResult={getResultValue}
-                            checkRepeatRule={getRepeatRule}
-                            checkMaxRolls={getMaxRolls}
-                            checkQuantityRolls={getQuantityRolls}
+                            checkResult={getCoinResultValue}
                         />
                     </>
                 );

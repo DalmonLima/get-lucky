@@ -5,16 +5,7 @@ const IntervalResult = (props) => {
     return (
         <View style={styles.section}>
             {(props.newResult) ?
-                (
-                    (props.repeatRule) ?
-                        <>
-                            <Text style={styles.resultNumber}>{props.newResult}</Text>
-                            <Text>{props.quantityRolls}/{props.maxRolls} sorteados</Text>
-                        </>
-                        :
-                        <Text style={styles.resultNumber}>{props.newResult}</Text>
-
-                )
+                <Text style={styles.resultNumber}>{props.newResult}</Text>
                 :
                 <Text>Nenhum moeda lançada</Text>
             }

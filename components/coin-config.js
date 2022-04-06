@@ -3,28 +3,21 @@ import {
     Text,
     View,
     StyleSheet,
-    Pressable,
-    TouchableOpacity
+    Pressable
 } from 'react-native';
 
 const CoinConfig = (props) => {
     const min = 1;
     const max = 2;
     const [lastValue, setLastValue] = useState();
-    const [rolledValues, setRolledValues] = useState([]);
-
-    const maxrolls = (max - min) + 1;
-    const quantityRolled = rolledValues.length;
 
     useEffect(() => {
         props.checkResult(lastValue)
-        props.checkMaxRolls(maxrolls)
-        props.checkQuantityRolls(quantityRolled)
-    }, [min, max, rolledValues, lastValue])
+    }, [lastValue])
 
     const randomize = () => {
         //gera o número aleatório
-        const random = Math.floor(Math.random() * maxrolls + min)
+        const random = Math.floor(Math.random() * max + min)
         setLastValue(random)
     }
 
