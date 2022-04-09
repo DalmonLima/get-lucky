@@ -7,6 +7,13 @@ import {
     TouchableOpacity
 } from 'react-native';
 
+import D4Icon from '../assets/d4_icon.svg';
+import D6Icon from '../assets/d6_icon.svg';
+import D8Icon from '../assets/d8_icon.svg';
+import D12Icon from '../assets/d12_icon.svg';
+import D20Icon from '../assets/d20_icon.svg';
+
+
 const DiceConfig = (props) => {
     const min = 1;
     const [lastValue, setLastValue] = useState();
@@ -15,31 +22,36 @@ const DiceConfig = (props) => {
             id: 1,
             title: 'D6',
             isActive: true,
-            max: 6
+            max: 6,
+            icon: <D6Icon width={24} height={24}/>
         },
         {
             id: 2,
             title: 'D4',
             isActive: false,
-            max: 4
+            max: 4,
+            icon: <D4Icon width={24} height={24} />
         },
         {
             id: 3,
             title: 'D8',
             isActive: false,
-            max: 8
+            max: 8,
+            icon: <D8Icon width={24} height={24} />
         },
         {
             id: 4,
             title: 'D12',
             isActive: false,
-            max: 12
+            max: 12,
+            icon: <D12Icon width={24} height={24}/>
         },
         {
             id: 5,
             title: 'D20',
             isActive: false,
-            max: 20
+            max: 20,
+            icon: <D20Icon width={24} height={24}/>
         }
     ])
     const [max, setMax] = useState(diceOptions.find(option => option.isActive == true).max);
@@ -84,9 +96,10 @@ const DiceConfig = (props) => {
                             onPress={() => controlState(option.id)}
                             key = {option.id}
                         >
-                            <View style={option.isActive ? styles.diceActive : styles.diceInactive}
+                            <View style={option.isActive ? styles.diceActiveContainer : styles.diceInactiveContainer}
                             >
-                                <Text>{option.title}</Text>
+                                <Text style={option.isActive ? styles.diceActiveContent : styles.diceInactiveContent}>{option.title}</Text>
+                                {option.icon}
                             </View>
                         </TouchableOpacity>
                     )
@@ -107,22 +120,34 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 24,
         borderTopRightRadius: 24
     },
-    diceActive: {
+    diceActiveContainer: {
         borderRadius: 4,
         padding: 8,
-        backgroundColor: '#ff6b00'
+        backgroundColor: '#rgba(0, 161, 157, 0.5)',
+        alignItems: 'center'
     },
-    diceInactive: {
+    diceInactiveContainer: {
         borderRadius: 4,
         padding: 8,
-        backgroundColor: '#e9e9e9'
+        backgroundColor: '#e9e9e9',
+        alignItems: 'center'
+    },
+    diceActiveContent: {
+        borderRadius: 4,
+        padding: 8,
+        color: '#fff'
+    },
+    diceInactiveContent: {
+        borderRadius: 4,
+        padding: 8,
+        color: '#313131'
     },
     inputSection: {
         flexDirection: 'row',
         backgroundColor: '#f1f1f1',
         paddingVertical: 16,
         paddingHorizontal: 24,
-        borderRadius: 50,
+        borderRadius: 16,
         justifyContent: 'space-evenly',
         alignItems: 'center',
         marginBottom: 16
