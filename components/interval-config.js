@@ -9,42 +9,65 @@ import {
 } from 'react-native';
 
 const IntervalConfig = (props) => {
-    const [isRepeadBlocked, setisRepeadBlocked] = useState(false);
-    const [min, setMin] = useState(1);
-    const [max, setMax] = useState(10);
+    const [isRepeatBlocked, setIsRepeatBlocked] = useState(false);
+    const [min, setMin] = useState('');
+    const [max, setMax] = useState('');
     const [lastValue, setLastValue] = useState();
     const [rolledValues, setRolledValues] = useState([]);
+    const [isOnError, setIsOnError] = useState({
+        status: false,
+        message: ''
+    })
 
     const maxrolls = (max - min) + 1;
     const quantityRolled = rolledValues.length;
 
     const toggleSwitch = () => {
-        setisRepeadBlocked(previousState => !previousState);
+        setIsRepeatBlocked(previousState => !previousState);
         setRolledValues([]);
     }
 
     const minValidation = (newMin) => {
         const newMinTest = Number(newMin)
-        const maxTest = Number(max)
-        if (newMinTest !== 0 && newMinTest < maxTest) {
-            setMin(newMinTest)
-        }
+        setMin(newMinTest)
     }
 
     const maxValidation = (newMax) => {
         const newMaxTest = Number(newMax)
-        const minTest = Number(min)
-        if (newMaxTest !== 0 && newMaxTest > minTest) {
-            setMax(newMaxTest)
-        }
+        setMax(newMaxTest)
     }
 
     useEffect(() => {
         props.checkResult(lastValue)
-        props.checkRepeatRule(isRepeadBlocked)
+        props.checkRepeatRule(isRepeatBlocked)
         props.checkMaxRolls(maxrolls)
         props.checkQuantityRolls(quantityRolled)
-    }, [min, max, rolledValues, isRepeadBlocked, lastValue])
+    }, [min, max, rolledValues, isRepeatBlocked, lastValue, isOnError])
+
+    const tossCheck = () => {
+        if (min && max) {
+
+            if (min < max) {
+                setIsOnError({
+                    status: false,
+                    message: ''
+                })
+                randomize()
+            }
+            else {
+                setIsOnError({
+                    status: true,
+                    message: 'valor máximo precisa ser maior que o mínimo'
+                })
+            }
+        }
+        else {
+            setIsOnError({
+                status: true,
+                message: 'campo com valor vazio'
+            })
+        }
+    }
 
     const randomize = () => {
         //gera o número aleatório
@@ -52,7 +75,7 @@ const IntervalConfig = (props) => {
 
         //verifica se tá com o bloqueio para números repetidos
         //se TIVER bloqueio ativo
-        if (isRepeadBlocked) {
+        if (isRepeatBlocked) {
 
 
             //verifica se pode chamar mais valores
@@ -89,35 +112,47 @@ const IntervalConfig = (props) => {
     return (
         <View style={styles.container}>
             <View style={styles.inputSection}>
+
                 <TextInput
                     style={styles.inputField}
                     onChangeText={newValue => minValidation(newValue)}
                     value={min.toString()}
                     keyboardType="numeric"
                     maxLength={4}
-
+                    placeholder='min'
                 />
+
                 <Text style={styles.separator}>a</Text>
+
                 <TextInput
                     style={styles.inputField}
                     onChangeText={newValue => maxValidation(newValue)}
                     value={max.toString()}
                     keyboardType="numeric"
                     maxLength={4}
+                    placeholder='max'
                 />
             </View>
+
+            {isOnError.status ? 
+            <View style={{backgroundColor:'orange', padding: 8, borderRadius: 8, marginTop: 8}}>
+                <Text style={{color: 'white'}}>{isOnError.message}</Text>
+            </View>
+            :
+            null}
+
             <View style={styles.switchSection}>
-                <Text> Repetir número sorteado </Text>
+                <Text> Não repetir número sorteado </Text>
                 <Switch
-                    trackColor={{ false: "#BBBBBB", true: "#FF964A" }}
+                    trackColor={{ false: "#BBBBBB", true: "#00A19D" }}
                     thumbColor="#f4f3f4"
                     ios_backgroundColor="#3e3e3e"
                     onValueChange={toggleSwitch}
-                    value={isRepeadBlocked}
+                    value={isRepeatBlocked}
                 />
             </View>
             <Pressable style={styles.rollButton}
-                onPress={randomize}
+                onPress={() => tossCheck()}
             >
                 <Text style={styles.rollButtonText}> SORTEAR </Text>
             </Pressable>
@@ -129,14 +164,22 @@ const IntervalConfig = (props) => {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#fff',
-        padding: 16
+        padding: 16,
+        borderTopLeftRadius: 24,
+        borderTopRightRadius: 24
+    },
+    errorBox: {
+        backgroundColor:'orange',
+        padding: 8,
+        borderRadius: 8,
+        marginTop: 8
     },
     inputSection: {
         flexDirection: 'row',
         backgroundColor: '#f1f1f1',
         paddingVertical: 16,
         paddingHorizontal: 24,
-        borderRadius: 50,
+        borderRadius: 16,
         alignItems: 'center',
         flexGrow: 1,
         justifyContent: 'space-evenly'
@@ -163,7 +206,7 @@ const styles = StyleSheet.create({
         lineHeight: 16
     },
     rollButton: {
-        backgroundColor: '#ff6b00',
+        backgroundColor: '#00A19D',
         justifyContent: 'center',
         alignItems: 'center',
         elevation: 3,

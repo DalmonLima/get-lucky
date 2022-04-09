@@ -17,7 +17,6 @@ const IntervalResult = (props) => {
 
 const styles = StyleSheet.create({
     section: {
-        backgroundColor: '#f1f1f1',
         width: '100%',
         alignItems: 'center',
         justifyContent: 'center',

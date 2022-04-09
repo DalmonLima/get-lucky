@@ -104,7 +104,8 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: '#fff',
         padding: 16,
-        width: '100%',
+        borderTopLeftRadius: 24,
+        borderTopRightRadius: 24
     },
     diceActive: {
         borderRadius: 4,
@@ -148,7 +149,7 @@ const styles = StyleSheet.create({
         lineHeight: 16
     },
     rollButton: {
-        backgroundColor: '#ff6b00',
+        backgroundColor: '#00A19D',
         justifyContent: 'center',
         alignItems: 'center',
         elevation: 3,

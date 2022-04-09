@@ -70,12 +70,13 @@ const styles = StyleSheet.create({
     rollingType: {
         flexDirection: 'row',
         flex: 1,
+        backgroundColor: '#fff'
     },
     OptionActive: {
         paddingVertical: 16,
         paddingHorizontal: 16,
         flexDirection: 'column',
-        borderBottomColor: '#ff6b00',
+        borderBottomColor: '#00A19D',
         borderBottomWidth: 5,
     },
     optionInactive: {

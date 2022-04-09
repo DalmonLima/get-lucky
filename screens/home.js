@@ -130,7 +130,7 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
     content: {
         flex: 1,
-        backgroundColor: 'blue'
+        backgroundColor: '#f1f1f1'
     },
 })
 
